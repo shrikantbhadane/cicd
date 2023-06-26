@@ -70,7 +70,10 @@ jobs:
  deploy-prod:
   needs: [docker-build]
   runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual'
+  if: |
+   github.event_name == 'workflow_dispatch' && 
+   github.event.inputs.deploy_prod == 'manual' &&
+   github.ref == 'refs/heads/main'
   steps:
    - name: Deploy Prod
      run: |
